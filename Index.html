@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lean & Strong — 10-Week Program</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; background: #0d0d0d; color: #e8e0d0; min-height: 100vh; }
+  button { cursor: pointer; font-family: Georgia, serif; }
+  .header { background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%); border-bottom: 1px solid #2a2a2a; padding: 36px 32px 28px; }
+  .header-inner { max-width: 920px; margin: 0 auto; }
+  .header-sub { font-size: 11px; letter-spacing: 0.25em; color: #888; text-transform: uppercase; margin-bottom: 10px; font-family: 'Courier New', monospace; }
+  .header h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 400; color: #f0e8d8; line-height: 1.1; letter-spacing: -0.02em; }
+  .header p { color: #888; font-size: 14px; margin-top: 10px; font-family: 'Courier New', monospace; letter-spacing: 0.05em; }
+  .tabs { border-bottom: 1px solid #222; background: #111; overflow-x: auto; }
+  .tabs-inner { max-width: 920px; margin: 0 auto; display: flex; min-width: max-content; }
+  .tab-btn { background: none; border: none; border-bottom: 2px solid transparent; color: #555; padding: 14px 20px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Courier New', monospace; transition: color 0.2s; white-space: nowrap; }
+  .tab-btn.active { border-bottom: 2px solid #e8e0d0; color: #f0e8d8; }
+  .content { max-width: 920px; margin: 0 auto; padding: 28px 24px 60px; }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+  .phase-btns { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+  .phase-btn { background: transparent; border: 1px solid #333; border-radius: 2px; padding: 12px 22px; transition: all 0.2s; text-align: left; }
+  .phase-btn .pw { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Courier New', monospace; color: #666; margin-bottom: 3px; }
+  .phase-btn .pn { font-size: 15px; font-weight: 600; color: #ccc; }
+  .phase-intro { background: #161616; border: 1px solid #2a2a2a; border-radius: 2px; padding: 16px 20px; margin-bottom: 24px; font-family: 'Courier New', monospace; font-size: 13px; color: #aaa; line-height: 1.7; }
+  .deload-box { background: #161616; border: 1px solid #2a2a2a; border-left: 3px solid #C8A84A; border-radius: 2px; padding: 16px 20px; margin-bottom: 24px; font-family: 'Courier New', monospace; font-size: 13px; color: #aaa; line-height: 1.7; }
+  .deload-title { color: #C8A84A; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.1em; font-size: 11px; text-transform: uppercase; }
+  .day-card { background: #111; border: 1px solid #252525; border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+  .day-header { width: 100%; background: none; border: none; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .day-label { border-radius: 2px; padding: 3px 10px; font-size: 10px; letter-spacing: 0.2em; font-family: 'Courier New', monospace; font-weight: 700; min-width: 70px; text-align: center; }
+  .day-name { font-size: 15px; color: #e0d8c8; font-weight: 500; text-align: left; }
+  .day-type { font-size: 12px; color: #555; font-family: 'Courier New', monospace; margin-top: 2px; text-align: left; }
+  .arrow { color: #444; font-size: 18px; transition: transform 0.2s; display: inline-block; }
+  .arrow.open { transform: rotate(180deg); }
+  .exercise-list { border-top: 1px solid #1e1e1e; display: none; padding: 4px 0 12px; }
+  .exercise-list.open { display: block; }
+  .ex-header { display: grid; grid-template-columns: 1fr auto auto; padding: 8px 20px; font-size: 10px; letter-spacing: 0.15em; color: #444; font-family: 'Courier New', monospace; text-transform: uppercase; border-bottom: 1px solid #1a1a1a; }
+  .ex-row { display: grid; grid-template-columns: 1fr auto auto; padding: 11px 20px; border-bottom: 1px solid #161616; align-items: start; gap: 8px; }
+  .ex-name { font-size: 14px; color: #ddd; font-weight: 500; }
+  .ex-note { font-size: 11px; color: #4a4a4a; font-family: 'Courier New', monospace; margin-top: 3px; }
+  .ex-sets { text-align: center; font-size: 14px; font-family: 'Courier New', monospace; min-width: 50px; font-weight: 600; }
+  .ex-reps { text-align: right; font-size: 13px; color: #888; font-family: 'Courier New', monospace; min-width: 80px; }
+  .nutrition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .nutrition-card { background: #111; border: 1px solid #252525; border-radius: 2px; padding: 18px; }
+  .nutrition-icon { font-size: 22px; margin-bottom: 8px; }
+  .nutrition-title { font-size: 13px; font-weight: 600; color: #e0d8c8; margin-bottom: 6px; }
+  .nutrition-desc { font-size: 12px; color: #777; line-height: 1.6; font-family: 'Courier New', monospace; }
+  .meal-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .meal-day-btn { background: transparent; border: 1px solid #333; border-radius: 2px; padding: 8px 16px; transition: all 0.2s; }
+  .meal-day-btn .md-label { font-size: 11px; font-weight: 700; color: #888; font-family: 'Courier New', monospace; letter-spacing: 0.1em; }
+  .meal-day-btn .md-theme { font-size: 10px; color: #555; font-family: 'Courier New', monospace; margin-top: 2px; }
+  .meal-panel { display: none; background: #111; border: 1px solid #252525; border-radius: 2px; padding: 20px 24px; }
+  .meal-panel.active { display: block; }
+  .meal-panel-title { font-size: 14px; font-weight: 600; color: #e0d8c8; margin-bottom: 16px; }
+  .meal-row { display: flex; gap: 16px; padding: 11px 0; border-bottom: 1px solid #1a1a1a; align-items: flex-start; }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-time { min-width: 110px; font-size: 11px; font-family: 'Courier New', monospace; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 2px; }
+  .meal-food { font-size: 13px; color: #999; line-height: 1.6; }
+  .neck-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .neck-item { background: #111; border: 1px solid #252525; border-left: 3px solid #E87C7C; border-radius: 2px; padding: 14px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .neck-num { color: #E87C7C; font-family: 'Courier New', monospace; font-size: 12px; min-width: 24px; padding-top: 1px; }
+  .neck-text { font-size: 14px; color: #bbb; line-height: 1.5; }
+  .mob-card { background: #111; border: 1px solid #252525; border-left: 3px solid #8EB8D8; border-radius: 2px; padding: 20px 24px; }
+  .mob-title { font-size: 13px; font-weight: 600; color: #e0d8c8; margin-bottom: 14px; }
+  .mob-row { padding: 11px 0; border-bottom: 1px solid #1a1a1a; }
+  .mob-row:last-child { border-bottom: none; }
+  .mob-row-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .mob-name { font-size: 14px; color: #ddd; }
+  .mob-sets { font-size: 12px; color: #8EB8D8; font-family: 'Courier New', monospace; }
+  .mob-desc { font-size: 12px; color: #555; font-family: 'Courier New', monospace; }
+  .section-label { font-size: 11px; letter-spacing: 0.2em; color: #555; font-family: 'Courier New', monospace; text-transform: uppercase; margin-bottom: 8px; }
+  .section-h2 { font-size: 26px; font-weight: 400; color: #f0e8d8; margin: 0 0 8px 0; }
+  .section-sub { color: #666; font-size: 13px; font-family: 'Courier New', monospace; margin-bottom: 28px; }
+  /* Injury prevention */
+  .inj-section { margin-bottom: 36px; }
+  .inj-section-title { font-size: 13px; font-weight: 700; color: #e0d8c8; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Courier New', monospace; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #222; }
+  .inj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .inj-card { background: #111; border: 1px solid #252525; border-radius: 2px; padding: 18px; }
+  .inj-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .inj-card-name { font-size: 14px; color: #ddd; font-weight: 500; }
+  .inj-card-badge { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Courier New', monospace; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
+  .inj-card-timing { font-size: 11px; color: #7EB8A4; font-family: 'Courier New', monospace; margin-bottom: 6px; }
+  .inj-card-desc { font-size: 12px; color: #666; line-height: 1.6; font-family: 'Courier New', monospace; }
+  .tip-list { display: flex; flex-direction: column; gap: 10px; }
+  .tip-item { background: #111; border: 1px solid #252525; border-radius: 2px; padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .tip-icon { font-size: 18px; min-width: 28px; }
+  .tip-body {}
+  .tip-title { font-size: 13px; font-weight: 600; color: #e0d8c8; margin-bottom: 4px; }
+  .tip-desc { font-size: 12px; color: #666; line-height: 1.6; font-family: 'Courier New', monospace; }
+  .speed-card { background: #111; border: 1px solid #252525; border-left: 3px solid #E8D87C; border-radius: 2px; padding: 16px 20px; margin-bottom: 10px; }
+  .speed-card-title { font-size: 13px; font-weight: 600; color: #E8D87C; margin-bottom: 6px; }
+  .speed-card-desc { font-size: 13px; color: #888; line-height: 1.6; font-family: 'Courier New', monospace; }
+  .bad-neck-box { background: #1a1010; border: 1px solid #3a2020; border-left: 3px solid #E87C7C; border-radius: 2px; padding: 20px 24px; margin-top: 28px; }
+  .bad-neck-title { font-size: 13px; font-weight: 600; color: #E87C7C; margin-bottom: 14px; }
+  .bad-neck-row { display: flex; gap: 16px; padding: 9px 0; border-bottom: 1px solid #2a1a1a; align-items: flex-start; }
+  .bad-neck-row:last-child { border-bottom: none; }
+  .bad-neck-orig { min-width: 200px; font-size: 13px; color: #666; font-family: 'Courier New', monospace; padding-top: 1px; text-decoration: line-through; }
+  .bad-neck-sub { font-size: 13px; color: #bbb; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-sub">10-Week Program · 80kg · Off-season · Running Phase 3</div>
+    <h1>Lean & Strong</h1>
+    <p>Cervical-safe · Upper-body dominant · Speed-preserving · No supplements</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active mono" onclick="switchTab('schedule',this)">Program</button>
+    <button class="tab-btn mono" onclick="switchTab('nutrition',this)">Nutrition</button>
+    <button class="tab-btn mono" onclick="switchTab('injury',this)">Injury Prevention</button>
+    <button class="tab-btn mono" onclick="switchTab('neck',this)">Neck Safety</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SCHEDULE TAB -->
+  <div id="tab-schedule" class="tab-pane active">
+    <div class="phase-btns">
+      <button class="phase-btn" id="pbtn-1" onclick="switchPhase(1)">
+        <div class="pw">Weeks 1–3</div><div class="pn">Phase 1 — Reactivation</div>
+      </button>
+      <button class="phase-btn" id="pbtn-2" onclick="switchPhase(2)">
+        <div class="pw">Weeks 4–7</div><div class="pn">Phase 2 — Build</div>
+      </button>
+      <button class="phase-btn" id="pbtn-3" onclick="switchPhase(3)">
+        <div class="pw">Weeks 8–10</div><div class="pn">Phase 3 — Peak & Lean</div>
+      </button>
+    </div>
+    <div class="phase-intro" id="phase-intro"></div>
+    <div class="deload-box" id="deload-box" style="display:none">
+      <div class="deload-title">⚡ Deload — Week 5</div>
+      <span id="deload-text"></span>
+    </div>
+    <div id="days-container"></div>
+  </div>
+
+  <!-- NUTRITION TAB -->
+  <div id="tab-nutrition" class="tab-pane">
+    <div class="section-label">Guidelines</div>
+    <h2 class="section-h2">Nutrition Strategy</h2>
+    <p class="section-sub">~2400 kcal · ~130–145g protein · No fish · No supplements</p>
+    <div class="nutrition-grid">
+      <div class="nutrition-card"><div class="nutrition-icon">🥩</div><div class="nutrition-title">Protein target</div><div class="nutrition-desc">~130–145g/day. Eggs, chicken, beef, turkey, Greek yogurt, cottage cheese.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">🍚</div><div class="nutrition-title">Carb timing</div><div class="nutrition-desc">Bigger carb meals around workouts. Reduce on full rest days.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">🥑</div><div class="nutrition-title">Healthy fats</div><div class="nutrition-desc">Olive oil, avocado, nuts, eggs. Anti-inflammatory — good for cervical hernias.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">💧</div><div class="nutrition-title">Hydration</div><div class="nutrition-desc">2.5–3L water daily. More on run days.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">📉</div><div class="nutrition-title">Caloric deficit</div><div class="nutrition-desc">~300–400 kcal below maintenance. Don't cut aggressively on heavy training days.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">⚡</div><div class="nutrition-title">Speed & power</div><div class="nutrition-desc">Don't undereat carbs — speed and explosive power are carb-dependent. A steep deficit kills fast-twitch output.</div></div>
+    </div>
+    <div class="section-label">Sample Days of Eating — mix &amp; match</div>
+    <div class="meal-selector" id="meal-selector"></div>
+    <div id="meal-panels"></div>
+  </div>
+
+  <!-- INJURY PREVENTION TAB -->
+  <div id="tab-injury" class="tab-pane">
+    <div class="section-label">Off-season maintenance</div>
+    <h2 class="section-h2">Injury Prevention</h2>
+    <p class="section-sub">Stretching, mobility, speed preservation & tips for a soccer player with cervical hernias</p>
+
+    <!-- Speed section -->
+    <div class="inj-section">
+      <div class="inj-section-title">⚡ Protecting & Building Your Speed</div>
+      <div class="speed-card">
+        <div class="speed-card-title">Don't build bulky legs</div>
+        <div class="speed-card-desc">Heavy, high-volume quad work adds mass that slows acceleration. The lower body program here keeps volume and load intentionally moderate — enough to strengthen, not enough to bulk. This is the right call for a speed player.</div>
+      </div>
+      <div class="speed-card">
+        <div class="speed-card-title">Train explosiveness, not just strength</div>
+        <div class="speed-card-desc">Once Phase 2 begins, consider adding 2–3 sets of box jumps or broad jumps before your lower body session (when fresh). These train fast-twitch fibers in a way that heavy slow lifts don't. Keep it low volume — 3×5 is enough. Don't do these on tired legs.</div>
+      </div>
+      <div class="speed-card">
+        <div class="speed-card-title">Hip flexor strength = sprint speed</div>
+        <div class="speed-card-desc">Weak hip flexors are the most underrated limiter of top speed in soccer players. The hanging knee raises and dead bugs in the program address this directly. Add standing cable hip flexor raises (2×15/side) to your lower body day if available at your gym.</div>
+      </div>
+      <div class="speed-card">
+        <div class="speed-card-title">Hamstring strength protects speed</div>
+        <div class="speed-card-desc">Nordic Curls build eccentric hamstring strength — the exact quality that prevents hamstring tears at full sprint. A hamstring injury is the fastest way to lose your speed. These are in the program from Phase 1 and should never be skipped.</div>
+      </div>
+      <div class="speed-card">
+        <div class="speed-card-title">Don't run yourself flat in Phase 3</div>
+        <div class="speed-card-desc">When running 2–3 days/week in Phase 3, keep at least one run as short sprints or strides (6–8×80m at 85–90% effort with full recovery). This maintains fast-twitch fiber recruitment that long slow runs gradually erode. The other runs can be easy Zone 2.</div>
+      </div>
+    </div>
+
+    <!-- Daily mobility -->
+    <div class="inj-section">
+      <div class="inj-section-title">🌅 Daily Mobility Routine (10–15 min) — do this every morning</div>
+      <div class="inj-grid">
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Hip Flexor Stretch (kneeling)</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
+          <div class="inj-card-timing">2×45s per side</div>
+          <div class="inj-card-desc">Rear knee on ground, drive hips forward. Squeeze glute of rear leg for a deeper stretch. Critical for soccer players — tight hip flexors reduce stride length and strain the lower back.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">90/90 Hip Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
+          <div class="inj-card-timing">2×45s per side</div>
+          <div class="inj-card-desc">Sit on floor with both legs at 90° angles. Lean over front shin. Opens hip internal and external rotation — the range of motion used most in cutting and turning at speed.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Thoracic Rotation (seated)</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
+          <div class="inj-card-timing">2×10 reps/side</div>
+          <div class="inj-card-desc">Sit cross-legged, hands behind head, rotate torso left/right. Keeps the thoracic spine mobile — when this stiffens, the cervical spine compensates and takes more stress.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">World's Greatest Stretch</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
+          <div class="inj-card-timing">5 reps/side</div>
+          <div class="inj-card-desc">Lunge forward, place same-side hand on ground, rotate opposite arm to ceiling. Combines hip flexor, thoracic, and hamstring mobility in one movement. Best pre-workout primer there is.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Standing Hamstring Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
+          <div class="inj-card-timing">2×40s per side</div>
+          <div class="inj-card-desc">Foot on low surface, slight forward hinge at hip (not rounding the back). Hamstring flexibility directly influences your sprint mechanics and reduces injury risk at top speed.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Calf & Achilles Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
+          <div class="inj-card-timing">2×40s per side</div>
+          <div class="inj-card-desc">Against wall: straight leg for gastroc, bent knee for soleus/Achilles. Soccer players are notorious for neglecting the Achilles — this takes 90 seconds and is worth it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pre-workout activation -->
+    <div class="inj-section">
+      <div class="inj-section-title">🔥 Pre-Workout Activation (5 min) — before every gym session</div>
+      <div class="inj-grid">
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Glute Bridge</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
+          <div class="inj-card-timing">2×15 reps</div>
+          <div class="inj-card-desc">Activates glutes before any lower body work. Dormant glutes shift load to hamstrings and lower back — a common setup for injury.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Scapular Push-ups</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
+          <div class="inj-card-timing">2×12 reps</div>
+          <div class="inj-card-desc">In push-up position, protract and retract scapula without bending elbows. Primes serratus anterior before any push session — protects the shoulder and cervical chain.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Chin Tucks</div><span class="inj-card-badge" style="background:#E87C7C22;color:#E87C7C;border:1px solid #E87C7C44">Neck — always</span></div>
+          <div class="inj-card-timing">2×15 reps</div>
+          <div class="inj-card-desc">Always do these before any upper body session. Resets cervical posture and activates deep neck flexors before loading the shoulder girdle above them.</div>
+        </div>
+        <div class="inj-card">
+          <div class="inj-card-top"><div class="inj-card-name">Arm Circles + Shoulder CARs</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
+          <div class="inj-card-timing">10 reps each direction</div>
+          <div class="inj-card-desc">Slow controlled articular rotations through full shoulder range. Takes 60 seconds and meaningfully reduces shoulder impingement risk during pressing.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post-workout -->
+    <div class="inj-section">
+      <div class="inj-section-title">🧊 Post-Workout & Recovery Tips</div>
+      <div class="tip-list">
+        <div class="tip-item"><div class="tip-icon">🛁</div><div class="tip-body"><div class="tip-title">Cold shower after intense sessions</div><div class="tip-desc">2–3 minutes cold water on worked muscles after Phase 2 and 3 sessions. Reduces inflammation and speeds up perceived recovery. You don't need an ice bath — a cold shower works.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">😴</div><div class="tip-body"><div class="tip-title">Sleep is the best recovery tool you have</div><div class="tip-desc">7.5–9 hours. Growth hormone peaks in the first 90 minutes of deep sleep. Cutting sleep short by even 1 hour measurably reduces strength output the next day. Non-negotiable with your training volume.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">🦵</div><div class="tip-body"><div class="tip-title">Foam roll calves, quads & IT band weekly</div><div class="tip-desc">Not daily — 2–3x per week is enough. Focus on calves and the lateral quad (not directly on the IT band itself, but the quad tissue beside it). Reduces stiffness and maintains tissue quality over the 10 weeks.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">🚶</div><div class="tip-body"><div class="tip-title">Walk on rest days</div><div class="tip-desc">20–30 minutes of easy walking on off-days keeps blood flowing to muscles, reduces soreness, and doesn't add meaningful fatigue. Better than full rest for recovery.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">🩹</div><div class="tip-body"><div class="tip-title">Don't train through sharp pain</div><div class="tip-desc">Distinguish discomfort (normal) from sharp, joint, or referred pain (stop). With cervical hernias, any tingling, shooting, or numbness in the arm during a lift means stop that exercise immediately — not after the set.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">📅</div><div class="tip-body"><div class="tip-title">Deload week — Week 5</div><div class="tip-desc">Drop all sets by 40% and remove the heaviest compound movements for one full week. Keep the same exercises, same frequency — just reduce load and volume. You will feel stronger in week 6 than if you had pushed through.</div></div></div>
+      </div>
+    </div>
+
+    <!-- Bad neck day -->
+    <div class="bad-neck-box">
+      <div class="bad-neck-title">🔴 Bad Neck Day — Exercise Substitutions</div>
+      <p style="font-size:13px;color:#888;font-family:'Courier New',monospace;margin-bottom:16px;line-height:1.6">If you wake up with increased stiffness, arm weakness, or tingling — don't skip the gym, just swap these:</p>
+      <div class="bad-neck-row"><div class="bad-neck-orig">DB Shoulder Press</div><div class="bad-neck-sub">Cable Lateral Raise only — no overhead pressing</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Barbell Row</div><div class="bad-neck-sub">Chest-supported DB Row on incline bench</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Weighted Pull-up</div><div class="bad-neck-sub">Bodyweight pull-up or assisted pull-up only</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Skull Crusher</div><div class="bad-neck-sub">Tricep pushdown (cable) — no neck extension under load</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Any pressing feeling wrong</div><div class="bad-neck-sub">Replace entire push session with face pulls, lateral raises, and core work only</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Lat Pulldown feeling off</div><div class="bad-neck-sub">Seated cable row with neutral grip — less cervical involvement</div></div>
+    </div>
+  </div>
+
+  <!-- NECK SAFETY TAB -->
+  <div id="tab-neck" class="tab-pane">
+    <div class="section-label">Cervical Hernias C-spine</div>
+    <h2 class="section-h2">Neck Safety Protocol</h2>
+    <p class="section-sub">Non-negotiable throughout all 10 weeks.</p>
+    <div class="neck-list">
+      <div class="neck-item"><span class="neck-num">01</span><span class="neck-text">No overhead pressing behind the neck — ever</span></div>
+      <div class="neck-item"><span class="neck-num">02</span><span class="neck-text">Avoid heavy axial barbell loading — use goblet squat, safety bar, or leg press instead if any symptoms arise</span></div>
+      <div class="neck-item"><span class="neck-num">03</span><span class="neck-text">No extreme neck flexion or extension under load</span></div>
+      <div class="neck-item"><span class="neck-num">04</span><span class="neck-text">Cable Face Pulls every single session — most protective exercise for cervical discs</span></div>
+      <div class="neck-item"><span class="neck-num">05</span><span class="neck-text">If any tingling or shooting pain occurs in arm/shoulder, stop immediately — not after the set</span></div>
+      <div class="neck-item"><span class="neck-num">06</span><span class="neck-text">Supported rows (chest on bench) preferred over free-standing bent-over rows</span></div>
+      <div class="neck-item"><span class="neck-num">07</span><span class="neck-text">Lat Pulldown: front only — never behind the neck</span></div>
+      <div class="neck-item"><span class="neck-num">08</span><span class="neck-text">Sleep with a cervical support pillow</span></div>
+    </div>
+    <div class="mob-card">
+      <div class="mob-title">Daily Neck & Shoulder Mobility (10 min)</div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Chin Tucks</span><span class="mob-sets">2×15 reps</span></div><div class="mob-desc">Retract chin gently, hold 2s — most important exercise for cervical discs</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Cervical Rotation</span><span class="mob-sets">2×10/side</span></div><div class="mob-desc">Slow and gentle, never forced</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Thoracic Extension</span><span class="mob-sets">2×10 reps</span></div><div class="mob-desc">Over foam roller or hands behind head</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Doorway Chest Stretch</span><span class="mob-sets">3×30s</span></div><div class="mob-desc">Arms at 90°, open chest passively</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Scapular Wall Slides</span><span class="mob-sets">2×12 reps</span></div><div class="mob-desc">Back to wall, arms slide up/down maintaining contact</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Dead Hang</span><span class="mob-sets">2×20s</span></div><div class="mob-desc">Decompresses cervical spine — only if pain-free</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const phases = {
+  1: {
+    color: "#7EB8A4",
+    intro: "🔄 3 days/week. Reactivate upper body strength and rebuild connective tissue. Lower body includes Nordic Curls from day one — the single best hamstring injury prevention investment for a speed player. Don't rush loads.",
+    showDeload: false,
+    days: [
+      { day:"Monday", type:"Upper Body — Push", label:"PUSH", color:"#7EB8A4", exercises:[
+        {name:"Dumbbell Bench Press",sets:"4",reps:"12",note:"Moderate weight, full range of motion"},
+        {name:"Incline DB Press",sets:"3",reps:"12",note:"30–45° incline"},
+        {name:"Cable Flye",sets:"3",reps:"15",note:"Controlled squeeze at center"},
+        {name:"Seated DB Lateral Raise",sets:"3",reps:"15",note:"Light, strict form — no swinging"},
+        {name:"Cable Face Pull",sets:"4",reps:"15",note:"Non-negotiable for cervical health"},
+        {name:"Overhead Tricep Extension (DB)",sets:"3",reps:"12",note:""},
+        {name:"Plank",sets:"3",reps:"40s",note:""},
+      ]},
+      { day:"Wednesday", type:"Lower Body — Strength & Speed", label:"LOWER", color:"#A4B87E", exercises:[
+        {name:"Goblet Squat",sets:"3",reps:"10",note:"Moderate load — quality over weight"},
+        {name:"Romanian Deadlift",sets:"3",reps:"10",note:"Feel the stretch, controlled"},
+        {name:"Nordic Curl",sets:"3",reps:"5–6",note:"Slow 4s eccentric — hamstring injury prevention essential"},
+        {name:"Leg Press",sets:"3",reps:"12",note:"Moderate weight"},
+        {name:"Leg Curl (machine)",sets:"3",reps:"12",note:"Posterior chain balance"},
+        {name:"Standing Calf Raise",sets:"3",reps:"15",note:"On step, full stretch"},
+        {name:"Hanging Knee Raise",sets:"3",reps:"12",note:"Hip flexor strength = sprint speed"},
+        {name:"Ab Wheel Rollout",sets:"3",reps:"10",note:""},
+      ]},
+      { day:"Friday", type:"Upper Body — Pull", label:"PULL", color:"#7E9AB8", exercises:[
+        {name:"Assisted Pull-up",sets:"4",reps:"8–10",note:"Neutral grip, machine or jump assist"},
+        {name:"Seated Cable Row",sets:"4",reps:"12",note:"Neutral grip, full scapular retraction"},
+        {name:"Single-arm DB Row",sets:"3",reps:"10/side",note:"Chest supported on incline bench"},
+        {name:"Cable Face Pull",sets:"3",reps:"15",note:""},
+        {name:"Incline DB Curl",sets:"3",reps:"12",note:"Full stretch at bottom"},
+        {name:"Hammer Curl",sets:"3",reps:"12",note:""},
+        {name:"Dead Bug",sets:"3",reps:"8/side",note:"Slow and deliberate"},
+      ]},
+    ]
+  },
+  2: {
+    color: "#E8A87C",
+    intro: "📈 4 days/week. Three upper body sessions, one lower body day. Progressive overload across all movements. Lower body loads increase slightly — you're off-season, so you can push a bit more, but keep mass gains minimal to protect speed.",
+    showDeload: true,
+    deloadText: "Week 5 is your deload. Drop all sets by 40%, remove heaviest compound sets, keep every exercise and frequency the same. One week of backing off now means stronger output for the entire Phase 3.",
+    days: [
+      { day:"Monday", type:"Upper Body — Push", label:"PUSH", color:"#E8A87C", exercises:[
+        {name:"Dumbbell Bench Press",sets:"4",reps:"10",note:"Increase load from phase 1"},
+        {name:"Incline DB Press",sets:"4",reps:"10",note:""},
+        {name:"Cable Flye",sets:"3",reps:"12",note:""},
+        {name:"Seated DB Shoulder Press",sets:"3",reps:"10",note:"Strict form, pain-free range"},
+        {name:"Cable Lateral Raise",sets:"3",reps:"12",note:"Single arm, controlled"},
+        {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
+        {name:"Tricep Pushdown (cable)",sets:"3",reps:"12",note:""},
+        {name:"Decline Crunch",sets:"3",reps:"15",note:""},
+      ]},
+      { day:"Wednesday", type:"Lower Body — Strength & Speed", label:"LOWER", color:"#C8A87C", exercises:[
+        {name:"Goblet Squat",sets:"3",reps:"10",note:"Slight load increase — still not maxing out"},
+        {name:"Romanian Deadlift",sets:"4",reps:"8",note:"Build load, maintain hinge quality"},
+        {name:"Nordic Curl",sets:"3",reps:"6–8",note:"Every session — non-negotiable"},
+        {name:"Leg Press",sets:"3",reps:"10",note:"Moderate-heavy"},
+        {name:"Leg Curl (machine)",sets:"3",reps:"12",note:""},
+        {name:"Seated Calf Raise",sets:"3",reps:"15",note:""},
+        {name:"Cable Crunch",sets:"3",reps:"15",note:""},
+        {name:"Hanging Knee Raise",sets:"3",reps:"15",note:"Hip flexor strength for sprint speed"},
+      ]},
+      { day:"Thursday", type:"Upper Body — Pull", label:"PULL", color:"#7C9EE8", exercises:[
+        {name:"Pull-up (bodyweight)",sets:"4",reps:"6–8",note:"Full ROM, no kipping"},
+        {name:"Barbell Row",sets:"4",reps:"8",note:"Chest on incline bench to reduce neck strain"},
+        {name:"Seated Cable Row",sets:"3",reps:"10",note:""},
+        {name:"Lat Pulldown",sets:"3",reps:"10",note:"Front only — wide grip"},
+        {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
+        {name:"Incline DB Curl",sets:"3",reps:"10",note:""},
+        {name:"Hammer Curl",sets:"3",reps:"10",note:""},
+      ]},
+      { day:"Saturday", type:"Upper Body — Full (Volume)", label:"FULL", color:"#A8C87C", exercises:[
+        {name:"Dips",sets:"4",reps:"10–12",note:"Upright torso, full ROM"},
+        {name:"Pull-up",sets:"4",reps:"max",note:""},
+        {name:"DB Bench Press",sets:"3",reps:"12",note:"Moderate, pump focus"},
+        {name:"Cable Row",sets:"3",reps:"12",note:""},
+        {name:"Cable Face Pull",sets:"3",reps:"20",note:""},
+        {name:"DB Curl + Overhead Extension",sets:"3",reps:"12+12",note:"Superset"},
+        {name:"Cable Lateral Raise",sets:"3",reps:"15",note:""},
+      ]},
+    ]
+  },
+  3: {
+    color: "#8EB8D8",
+    intro: "🔥 4 days/week + 2–3 runs. Peak gym intensity. Lower body remains controlled — your running is already loading the legs. Runs: keep at least one session as short sprints or strides to maintain fast-twitch output.",
+    showDeload: false,
+    days: [
+      { day:"Monday", type:"Upper Body — Push (Intensity)", label:"PUSH", color:"#8EB8D8", exercises:[
+        {name:"Dumbbell Bench Press",sets:"5",reps:"6–8",note:"Peak load — controlled descent"},
+        {name:"Incline DB Press",sets:"4",reps:"8",note:""},
+        {name:"Cable Flye superset Push-up",sets:"3",reps:"12 + max",note:"Straight into push-ups"},
+        {name:"Seated DB Shoulder Press",sets:"4",reps:"8",note:""},
+        {name:"Cable Lateral Raise",sets:"3",reps:"15",note:""},
+        {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
+        {name:"Skull Crusher (EZ bar)",sets:"3",reps:"10",note:"Light-moderate, elbows stable"},
+      ]},
+      { day:"Tuesday", type:"Lower Body — Strength & Speed", label:"LOWER", color:"#78B8A4", exercises:[
+        {name:"Romanian Deadlift",sets:"3",reps:"8",note:"Moderate load — running is already loading legs"},
+        {name:"Nordic Curl",sets:"4",reps:"6",note:"Slow 4s eccentric — most important exercise for hamstring health"},
+        {name:"Leg Press",sets:"3",reps:"10",note:"Not maxing — supplementary only"},
+        {name:"Leg Curl (machine)",sets:"3",reps:"12",note:""},
+        {name:"Standing Calf Raise",sets:"3",reps:"15",note:""},
+        {name:"Ab Wheel Rollout",sets:"4",reps:"12",note:""},
+        {name:"Hanging Leg Raise",sets:"3",reps:"12",note:"Straight legs if possible"},
+      ]},
+      { day:"Thursday", type:"Upper Body — Pull (Intensity)", label:"PULL", color:"#6888C8", exercises:[
+        {name:"Weighted Pull-up",sets:"4",reps:"5–6",note:"Belt or dumbbell between feet"},
+        {name:"Barbell Row",sets:"4",reps:"6–8",note:"Heavier than phase 2"},
+        {name:"Seated Cable Row",sets:"3",reps:"8",note:"Heavy, full retraction"},
+        {name:"Lat Pulldown",sets:"3",reps:"10",note:""},
+        {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
+        {name:"Incline DB Curl superset Hammer Curl",sets:"3",reps:"10+10",note:"No rest between"},
+      ]},
+      { day:"Saturday", type:"Upper Body — Push (Volume)", label:"PUSH", color:"#88B878", exercises:[
+        {name:"Dips (weighted)",sets:"4",reps:"8",note:"Add weight if bodyweight is easy"},
+        {name:"DB Bench Press",sets:"3",reps:"10",note:"Moderate, pump-focused"},
+        {name:"Incline DB Press",sets:"3",reps:"10",note:""},
+        {name:"Cable Flye",sets:"3",reps:"12",note:""},
+        {name:"Cable Face Pull",sets:"3",reps:"20",note:""},
+        {name:"Overhead Tricep Extension",sets:"3",reps:"12",note:""},
+        {name:"Tricep Pushdown",sets:"3",reps:"15",note:"Drop set on last set"},
+      ]},
+    ]
+  }
+};
+
+const mealDays = [
+  { label:"Day A", theme:"Classic High-Protein", color:"#7EB8A4", meals:[
+    {time:"Breakfast",food:"3 eggs + 2 egg whites scrambled, oats with banana & honey, black coffee"},
+    {time:"Lunch",food:"200g grilled chicken breast, white rice, large mixed salad with olive oil & lemon"},
+    {time:"Snack",food:"Full-fat Greek yogurt + handful of walnuts"},
+    {time:"Post-workout",food:"Cottage cheese with berries + a slice of whole grain bread"},
+    {time:"Dinner",food:"Lean beef steak, sweet potato, steamed broccoli with butter"},
+  ]},
+  { label:"Day B", theme:"Chicken & Egg Focus", color:"#E8A87C", meals:[
+    {time:"Breakfast",food:"4-egg omelette with cheese & spinach, 2 slices whole grain toast, coffee"},
+    {time:"Lunch",food:"Chicken wrap: tortilla, grilled chicken, avocado, tomato, Greek yogurt instead of mayo"},
+    {time:"Snack",food:"Hard-boiled eggs (2–3) + apple"},
+    {time:"Post-workout",food:"Full-fat milk smoothie: banana, peanut butter, oats — no powder needed"},
+    {time:"Dinner",food:"Ground beef stir-fry with bell peppers, onions, served over rice"},
+  ]},
+  { label:"Day C", theme:"Mediterranean Lean", color:"#8EB8D8", meals:[
+    {time:"Breakfast",food:"Full-fat Greek yogurt bowl: granola, mixed berries, drizzle of honey, side of boiled egg"},
+    {time:"Lunch",food:"Grilled chicken thighs, quinoa, roasted vegetables (zucchini, peppers, eggplant) with olive oil"},
+    {time:"Snack",food:"Cottage cheese + sliced cucumber & tomato, pinch of salt"},
+    {time:"Post-workout",food:"2 eggs on whole grain toast with avocado"},
+    {time:"Dinner",food:"Lamb mince with chickpeas, tomato sauce & herbs, served with flatbread"},
+  ]},
+  { label:"Day D", theme:"Red Meat & Hearty", color:"#C87878", meals:[
+    {time:"Breakfast",food:"Overnight oats: oats, full-fat milk, chia seeds, banana — prepped the night before"},
+    {time:"Lunch",food:"Beef mince bolognese with pasta, parmesan, side salad"},
+    {time:"Snack",food:"Handful of mixed nuts + full-fat milk glass"},
+    {time:"Post-workout",food:"Greek yogurt with honey + rice cake with peanut butter"},
+    {time:"Dinner",food:"Grilled ribeye or sirloin, roasted potatoes with rosemary, green beans"},
+  ]},
+  { label:"Day E", theme:"Poultry Variety", color:"#A878C8", meals:[
+    {time:"Breakfast",food:"Pancakes made with oats, eggs & banana (no flour), topped with Greek yogurt & berries"},
+    {time:"Lunch",food:"Turkey mince burger patty with whole grain bun, tomato, lettuce, mustard + sweet potato fries"},
+    {time:"Snack",food:"Cottage cheese with pineapple chunks"},
+    {time:"Post-workout",food:"Boiled eggs (3) + orange"},
+    {time:"Dinner",food:"Chicken thigh stew with white beans, tomatoes & spinach, crusty bread"},
+  ]},
+];
+
+let activePhase = 1;
+let activeMealDay = 0;
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+function switchPhase(p) {
+  activePhase = p;
+  renderPhase();
+}
+
+function renderPhase() {
+  const phase = phases[activePhase];
+  const colors = {1:"#7EB8A4", 2:"#E8A87C", 3:"#8EB8D8"};
+  document.querySelectorAll('.phase-btn').forEach((btn, i) => {
+    const c = colors[i+1];
+    if (i+1 === activePhase) {
+      btn.style.background = c; btn.style.borderColor = c;
+      btn.querySelector('.pw').style.color = '#0d0d0d';
+      btn.querySelector('.pn').style.color = '#0d0d0d';
+    } else {
+      btn.style.background = 'transparent'; btn.style.borderColor = '#333';
+      btn.querySelector('.pw').style.color = '#666';
+      btn.querySelector('.pn').style.color = '#ccc';
+    }
+  });
+  const intro = document.getElementById('phase-intro');
+  intro.textContent = phase.intro;
+  intro.style.borderLeftColor = phase.color;
+
+  const deloadBox = document.getElementById('deload-box');
+  if (phase.showDeload) {
+    deloadBox.style.display = 'block';
+    document.getElementById('deload-text').textContent = phase.deloadText;
+  } else {
+    deloadBox.style.display = 'none';
+  }
+
+  const container = document.getElementById('days-container');
+  container.innerHTML = '';
+  phase.days.forEach((day) => {
+    const card = document.createElement('div');
+    card.className = 'day-card';
+    const exRows = day.exercises.map(ex => `
+      <div class="ex-row">
+        <div><div class="ex-name">${ex.name}</div>${ex.note ? `<div class="ex-note">↳ ${ex.note}</div>` : ''}</div>
+        <div class="ex-sets" style="color:${day.color}">${ex.sets}</div>
+        <div class="ex-reps">${ex.reps}</div>
+      </div>`).join('');
+    card.innerHTML = `
+      <button class="day-header" onclick="toggleDay(this)">
+        <div style="display:flex;align-items:center;gap:16px;flex:1">
+          <span class="day-label" style="background:${day.color}22;color:${day.color};border:1px solid ${day.color}44">${day.label}</span>
+          <div><div class="day-name">${day.day}</div><div class="day-type">${day.type}</div></div>
+        </div>
+        <div class="arrow">▾</div>
+      </button>
+      <div class="exercise-list">
+        <div class="ex-header"><span>Exercise</span><span style="text-align:center;min-width:50px">Sets</span><span style="text-align:right;min-width:80px">Reps</span></div>
+        ${exRows}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function toggleDay(btn) {
+  const list = btn.nextElementSibling;
+  const arrow = btn.querySelector('.arrow');
+  list.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function renderMeals() {
+  const selector = document.getElementById('meal-selector');
+  const panels = document.getElementById('meal-panels');
+  selector.innerHTML = ''; panels.innerHTML = '';
+  mealDays.forEach((d, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'meal-day-btn';
+    btn.onclick = () => switchMealDay(i);
+    btn.id = 'mdbtn-' + i;
+    btn.innerHTML = `<div class="md-label">${d.label}</div><div class="md-theme">${d.theme}</div>`;
+    selector.appendChild(btn);
+    const panel = document.createElement('div');
+    panel.className = 'meal-panel';
+    panel.id = 'meal-panel-' + i;
+    panel.style.borderLeftColor = d.color;
+    const rows = d.meals.map(m => `
+      <div class="meal-row">
+        <div class="meal-time" style="color:${d.color}">${m.time}</div>
+        <div class="meal-food">${m.food}</div>
+      </div>`).join('');
+    panel.innerHTML = `<div class="meal-panel-title">${d.label} — ${d.theme}</div>${rows}`;
+    panels.appendChild(panel);
+  });
+  switchMealDay(0);
+}
+
+function switchMealDay(i) {
+  activeMealDay = i;
+  document.querySelectorAll('.meal-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('meal-panel-' + i).classList.add('active');
+  mealDays.forEach((d, j) => {
+    const btn = document.getElementById('mdbtn-' + j);
+    if (j === i) {
+      btn.style.background = d.color; btn.style.borderColor = d.color;
+      btn.querySelector('.md-label').style.color = '#0d0d0d';
+      btn.querySelector('.md-theme').style.color = '#0d0d0d';
+    } else {
+      btn.style.background = 'transparent'; btn.style.borderColor = '#333';
+      btn.querySelector('.md-label').style.color = '#888';
+      btn.querySelector('.md-theme').style.color = '#555';
+    }
+  });
+}
+
+renderPhase();
+renderMeals();
+</script>
+</body>
+</html>
