@@ -74,7 +74,6 @@
   .section-label { font-size: 11px; letter-spacing: 0.2em; color: #555; font-family: 'Courier New', monospace; text-transform: uppercase; margin-bottom: 8px; }
   .section-h2 { font-size: 26px; font-weight: 400; color: #f0e8d8; margin: 0 0 8px 0; }
   .section-sub { color: #666; font-size: 13px; font-family: 'Courier New', monospace; margin-bottom: 28px; }
-  /* Injury prevention */
   .inj-section { margin-bottom: 36px; }
   .inj-section-title { font-size: 13px; font-weight: 700; color: #e0d8c8; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Courier New', monospace; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #222; }
   .inj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
@@ -113,10 +112,10 @@
 
 <div class="tabs">
   <div class="tabs-inner">
-    <button class="tab-btn active mono" onclick="switchTab('schedule',this)">Program</button>
-    <button class="tab-btn mono" onclick="switchTab('nutrition',this)">Nutrition</button>
-    <button class="tab-btn mono" onclick="switchTab('injury',this)">Injury Prevention</button>
-    <button class="tab-btn mono" onclick="switchTab('neck',this)">Neck Safety</button>
+    <button class="tab-btn active" onclick="switchTab('schedule',this)">Program</button>
+    <button class="tab-btn" onclick="switchTab('nutrition',this)">Nutrition</button>
+    <button class="tab-btn" onclick="switchTab('injury',this)">Injury Prevention</button>
+    <button class="tab-btn" onclick="switchTab('neck',this)">Neck Safety</button>
   </div>
 </div>
 
@@ -126,18 +125,18 @@
   <div id="tab-schedule" class="tab-pane active">
     <div class="phase-btns">
       <button class="phase-btn" id="pbtn-1" onclick="switchPhase(1)">
-        <div class="pw">Weeks 1–3</div><div class="pn">Phase 1 — Reactivation</div>
+        <div class="pw">Weeks 1-3</div><div class="pn">Phase 1 - Reactivation</div>
       </button>
       <button class="phase-btn" id="pbtn-2" onclick="switchPhase(2)">
-        <div class="pw">Weeks 4–7</div><div class="pn">Phase 2 — Build</div>
+        <div class="pw">Weeks 4-7</div><div class="pn">Phase 2 - Build</div>
       </button>
       <button class="phase-btn" id="pbtn-3" onclick="switchPhase(3)">
-        <div class="pw">Weeks 8–10</div><div class="pn">Phase 3 — Peak & Lean</div>
+        <div class="pw">Weeks 8-10</div><div class="pn">Phase 3 - Peak &amp; Lean</div>
       </button>
     </div>
     <div class="phase-intro" id="phase-intro"></div>
     <div class="deload-box" id="deload-box" style="display:none">
-      <div class="deload-title">⚡ Deload — Week 5</div>
+      <div class="deload-title">Deload - Week 5</div>
       <span id="deload-text"></span>
     </div>
     <div id="days-container"></div>
@@ -147,16 +146,16 @@
   <div id="tab-nutrition" class="tab-pane">
     <div class="section-label">Guidelines</div>
     <h2 class="section-h2">Nutrition Strategy</h2>
-    <p class="section-sub">~2400 kcal · ~130–145g protein · No fish · No supplements</p>
+    <p class="section-sub">~2800 kcal maintenance · ~130-145g protein · No fish · No supplements</p>
     <div class="nutrition-grid">
-      <div class="nutrition-card"><div class="nutrition-icon">🥩</div><div class="nutrition-title">Protein target</div><div class="nutrition-desc">~130–145g/day. Eggs, chicken, beef, turkey, Greek yogurt, cottage cheese.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">🥩</div><div class="nutrition-title">Protein target</div><div class="nutrition-desc">~130-145g/day. Eggs, chicken, beef, turkey, Greek yogurt, cottage cheese.</div></div>
       <div class="nutrition-card"><div class="nutrition-icon">🍚</div><div class="nutrition-title">Carb timing</div><div class="nutrition-desc">Bigger carb meals around workouts. Reduce on full rest days.</div></div>
-      <div class="nutrition-card"><div class="nutrition-icon">🥑</div><div class="nutrition-title">Healthy fats</div><div class="nutrition-desc">Olive oil, avocado, nuts, eggs. Anti-inflammatory — good for cervical hernias.</div></div>
-      <div class="nutrition-card"><div class="nutrition-icon">💧</div><div class="nutrition-title">Hydration</div><div class="nutrition-desc">2.5–3L water daily. More on run days.</div></div>
-      <div class="nutrition-card"><div class="nutrition-icon">📉</div><div class="nutrition-title">Caloric deficit</div><div class="nutrition-desc">~300–400 kcal below maintenance. Don't cut aggressively on heavy training days.</div></div>
-      <div class="nutrition-card"><div class="nutrition-icon">⚡</div><div class="nutrition-title">Speed & power</div><div class="nutrition-desc">Don't undereat carbs — speed and explosive power are carb-dependent. A steep deficit kills fast-twitch output.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">🥑</div><div class="nutrition-title">Healthy fats</div><div class="nutrition-desc">Olive oil, avocado, nuts, eggs. Anti-inflammatory - good for cervical hernias.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">💧</div><div class="nutrition-title">Hydration</div><div class="nutrition-desc">2.5-3L water daily. More on run days.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">⚖️</div><div class="nutrition-title">Body recomposition</div><div class="nutrition-desc">Eat at maintenance (~2800 kcal). Goal is fat loss + muscle gain at same weight. Don't restrict aggressively.</div></div>
+      <div class="nutrition-card"><div class="nutrition-icon">⚡</div><div class="nutrition-title">Speed &amp; power</div><div class="nutrition-desc">Don't undereat carbs - speed and explosive power are carb-dependent. A steep deficit kills fast-twitch output.</div></div>
     </div>
-    <div class="section-label">Sample Days of Eating — mix &amp; match</div>
+    <div class="section-label">Sample Days of Eating - mix &amp; match</div>
     <div class="meal-selector" id="meal-selector"></div>
     <div id="meal-panels"></div>
   </div>
@@ -165,120 +164,54 @@
   <div id="tab-injury" class="tab-pane">
     <div class="section-label">Off-season maintenance</div>
     <h2 class="section-h2">Injury Prevention</h2>
-    <p class="section-sub">Stretching, mobility, speed preservation & tips for a soccer player with cervical hernias</p>
-
-    <!-- Speed section -->
+    <p class="section-sub">Stretching, mobility, speed preservation &amp; tips for a soccer player with cervical hernias</p>
     <div class="inj-section">
-      <div class="inj-section-title">⚡ Protecting & Building Your Speed</div>
-      <div class="speed-card">
-        <div class="speed-card-title">Don't build bulky legs</div>
-        <div class="speed-card-desc">Heavy, high-volume quad work adds mass that slows acceleration. The lower body program here keeps volume and load intentionally moderate — enough to strengthen, not enough to bulk. This is the right call for a speed player.</div>
-      </div>
-      <div class="speed-card">
-        <div class="speed-card-title">Train explosiveness, not just strength</div>
-        <div class="speed-card-desc">Once Phase 2 begins, consider adding 2–3 sets of box jumps or broad jumps before your lower body session (when fresh). These train fast-twitch fibers in a way that heavy slow lifts don't. Keep it low volume — 3×5 is enough. Don't do these on tired legs.</div>
-      </div>
-      <div class="speed-card">
-        <div class="speed-card-title">Hip flexor strength = sprint speed</div>
-        <div class="speed-card-desc">Weak hip flexors are the most underrated limiter of top speed in soccer players. The hanging knee raises and dead bugs in the program address this directly. Add standing cable hip flexor raises (2×15/side) to your lower body day if available at your gym.</div>
-      </div>
-      <div class="speed-card">
-        <div class="speed-card-title">Hamstring strength protects speed</div>
-        <div class="speed-card-desc">Nordic Curls build eccentric hamstring strength — the exact quality that prevents hamstring tears at full sprint. A hamstring injury is the fastest way to lose your speed. These are in the program from Phase 1 and should never be skipped.</div>
-      </div>
-      <div class="speed-card">
-        <div class="speed-card-title">Don't run yourself flat in Phase 3</div>
-        <div class="speed-card-desc">When running 2–3 days/week in Phase 3, keep at least one run as short sprints or strides (6–8×80m at 85–90% effort with full recovery). This maintains fast-twitch fiber recruitment that long slow runs gradually erode. The other runs can be easy Zone 2.</div>
-      </div>
+      <div class="inj-section-title">⚡ Protecting &amp; Building Your Speed</div>
+      <div class="speed-card"><div class="speed-card-title">Don't build bulky legs</div><div class="speed-card-desc">Heavy, high-volume quad work adds mass that slows acceleration. The lower body program here keeps volume and load intentionally moderate - enough to strengthen, not enough to bulk.</div></div>
+      <div class="speed-card"><div class="speed-card-title">Train explosiveness, not just strength</div><div class="speed-card-desc">Once Phase 2 begins, consider adding 2-3 sets of box jumps or broad jumps before your lower body session (when fresh). Keep it low volume - 3x5 is enough. Don't do these on tired legs.</div></div>
+      <div class="speed-card"><div class="speed-card-title">Hip flexor strength = sprint speed</div><div class="speed-card-desc">Weak hip flexors are the most underrated limiter of top speed in soccer players. The hanging leg raises in the program address this directly every single session.</div></div>
+      <div class="speed-card"><div class="speed-card-title">Hamstring strength protects speed</div><div class="speed-card-desc">Nordic Curls build eccentric hamstring strength - the exact quality that prevents hamstring tears at full sprint. These are in the program from Phase 1 and should never be skipped.</div></div>
+      <div class="speed-card"><div class="speed-card-title">Don't run yourself flat in Phase 3</div><div class="speed-card-desc">Keep at least one run as short sprints or strides (6-8x80m at 85-90% effort with full recovery). This maintains fast-twitch fiber recruitment that long slow runs gradually erode.</div></div>
     </div>
-
-    <!-- Daily mobility -->
     <div class="inj-section">
-      <div class="inj-section-title">🌅 Daily Mobility Routine (10–15 min) — do this every morning</div>
+      <div class="inj-section-title">🌅 Daily Mobility Routine (10-15 min) - every morning</div>
       <div class="inj-grid">
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Hip Flexor Stretch (kneeling)</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
-          <div class="inj-card-timing">2×45s per side</div>
-          <div class="inj-card-desc">Rear knee on ground, drive hips forward. Squeeze glute of rear leg for a deeper stretch. Critical for soccer players — tight hip flexors reduce stride length and strain the lower back.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">90/90 Hip Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
-          <div class="inj-card-timing">2×45s per side</div>
-          <div class="inj-card-desc">Sit on floor with both legs at 90° angles. Lean over front shin. Opens hip internal and external rotation — the range of motion used most in cutting and turning at speed.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Thoracic Rotation (seated)</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
-          <div class="inj-card-timing">2×10 reps/side</div>
-          <div class="inj-card-desc">Sit cross-legged, hands behind head, rotate torso left/right. Keeps the thoracic spine mobile — when this stiffens, the cervical spine compensates and takes more stress.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">World's Greatest Stretch</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
-          <div class="inj-card-timing">5 reps/side</div>
-          <div class="inj-card-desc">Lunge forward, place same-side hand on ground, rotate opposite arm to ceiling. Combines hip flexor, thoracic, and hamstring mobility in one movement. Best pre-workout primer there is.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Standing Hamstring Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
-          <div class="inj-card-timing">2×40s per side</div>
-          <div class="inj-card-desc">Foot on low surface, slight forward hinge at hip (not rounding the back). Hamstring flexibility directly influences your sprint mechanics and reduces injury risk at top speed.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Calf & Achilles Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div>
-          <div class="inj-card-timing">2×40s per side</div>
-          <div class="inj-card-desc">Against wall: straight leg for gastroc, bent knee for soleus/Achilles. Soccer players are notorious for neglecting the Achilles — this takes 90 seconds and is worth it.</div>
-        </div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Hip Flexor Stretch (kneeling)</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div><div class="inj-card-timing">2x45s per side</div><div class="inj-card-desc">Rear knee on ground, drive hips forward. Squeeze glute of rear leg. Critical for soccer players - tight hip flexors reduce stride length and strain the lower back.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">90/90 Hip Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div><div class="inj-card-timing">2x45s per side</div><div class="inj-card-desc">Sit on floor with both legs at 90 degrees. Lean over front shin. Opens hip rotation range used most in cutting and turning at speed.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Thoracic Rotation (seated)</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div><div class="inj-card-timing">2x10 reps/side</div><div class="inj-card-desc">Sit cross-legged, hands behind head, rotate torso. When thoracic spine stiffens, the cervical spine compensates and takes more stress.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">World's Greatest Stretch</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div><div class="inj-card-timing">5 reps/side</div><div class="inj-card-desc">Lunge forward, place same-side hand on ground, rotate opposite arm to ceiling. Combines hip flexor, thoracic, and hamstring mobility in one movement.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Standing Hamstring Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div><div class="inj-card-timing">2x40s per side</div><div class="inj-card-desc">Foot on low surface, slight forward hinge at hip. Hamstring flexibility directly influences sprint mechanics and reduces injury risk at top speed.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Calf &amp; Achilles Stretch</div><span class="inj-card-badge" style="background:#7EB8A422;color:#7EB8A4;border:1px solid #7EB8A444">Daily</span></div><div class="inj-card-timing">2x40s per side</div><div class="inj-card-desc">Against wall: straight leg for gastroc, bent knee for Achilles. Soccer players are notorious for neglecting the Achilles - 90 seconds daily is worth it.</div></div>
       </div>
     </div>
-
-    <!-- Pre-workout activation -->
     <div class="inj-section">
-      <div class="inj-section-title">🔥 Pre-Workout Activation (5 min) — before every gym session</div>
+      <div class="inj-section-title">🔥 Pre-Workout Activation (5 min) - before every session</div>
       <div class="inj-grid">
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Glute Bridge</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
-          <div class="inj-card-timing">2×15 reps</div>
-          <div class="inj-card-desc">Activates glutes before any lower body work. Dormant glutes shift load to hamstrings and lower back — a common setup for injury.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Scapular Push-ups</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
-          <div class="inj-card-timing">2×12 reps</div>
-          <div class="inj-card-desc">In push-up position, protract and retract scapula without bending elbows. Primes serratus anterior before any push session — protects the shoulder and cervical chain.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Chin Tucks</div><span class="inj-card-badge" style="background:#E87C7C22;color:#E87C7C;border:1px solid #E87C7C44">Neck — always</span></div>
-          <div class="inj-card-timing">2×15 reps</div>
-          <div class="inj-card-desc">Always do these before any upper body session. Resets cervical posture and activates deep neck flexors before loading the shoulder girdle above them.</div>
-        </div>
-        <div class="inj-card">
-          <div class="inj-card-top"><div class="inj-card-name">Arm Circles + Shoulder CARs</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div>
-          <div class="inj-card-timing">10 reps each direction</div>
-          <div class="inj-card-desc">Slow controlled articular rotations through full shoulder range. Takes 60 seconds and meaningfully reduces shoulder impingement risk during pressing.</div>
-        </div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Glute Bridge</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div><div class="inj-card-timing">2x15 reps</div><div class="inj-card-desc">Activates glutes before lower body work. Dormant glutes shift load to hamstrings and lower back.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Scapular Push-ups</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div><div class="inj-card-timing">2x12 reps</div><div class="inj-card-desc">Protract and retract scapula without bending elbows. Primes the shoulder before pressing and protects the cervical chain.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Chin Tucks</div><span class="inj-card-badge" style="background:#E87C7C22;color:#E87C7C;border:1px solid #E87C7C44">Neck - always</span></div><div class="inj-card-timing">2x15 reps</div><div class="inj-card-desc">Always before upper body. Resets cervical posture and activates deep neck flexors before loading the shoulder girdle.</div></div>
+        <div class="inj-card"><div class="inj-card-top"><div class="inj-card-name">Arm Circles + Shoulder CARs</div><span class="inj-card-badge" style="background:#E8A87C22;color:#E8A87C;border:1px solid #E8A87C44">Pre-workout</span></div><div class="inj-card-timing">10 reps each direction</div><div class="inj-card-desc">Slow controlled articular rotations through full shoulder range. Reduces impingement risk during pressing.</div></div>
       </div>
     </div>
-
-    <!-- Post-workout -->
     <div class="inj-section">
-      <div class="inj-section-title">🧊 Post-Workout & Recovery Tips</div>
+      <div class="inj-section-title">🧊 Recovery Tips</div>
       <div class="tip-list">
-        <div class="tip-item"><div class="tip-icon">🛁</div><div class="tip-body"><div class="tip-title">Cold shower after intense sessions</div><div class="tip-desc">2–3 minutes cold water on worked muscles after Phase 2 and 3 sessions. Reduces inflammation and speeds up perceived recovery. You don't need an ice bath — a cold shower works.</div></div></div>
-        <div class="tip-item"><div class="tip-icon">😴</div><div class="tip-body"><div class="tip-title">Sleep is the best recovery tool you have</div><div class="tip-desc">7.5–9 hours. Growth hormone peaks in the first 90 minutes of deep sleep. Cutting sleep short by even 1 hour measurably reduces strength output the next day. Non-negotiable with your training volume.</div></div></div>
-        <div class="tip-item"><div class="tip-icon">🦵</div><div class="tip-body"><div class="tip-title">Foam roll calves, quads & IT band weekly</div><div class="tip-desc">Not daily — 2–3x per week is enough. Focus on calves and the lateral quad (not directly on the IT band itself, but the quad tissue beside it). Reduces stiffness and maintains tissue quality over the 10 weeks.</div></div></div>
-        <div class="tip-item"><div class="tip-icon">🚶</div><div class="tip-body"><div class="tip-title">Walk on rest days</div><div class="tip-desc">20–30 minutes of easy walking on off-days keeps blood flowing to muscles, reduces soreness, and doesn't add meaningful fatigue. Better than full rest for recovery.</div></div></div>
-        <div class="tip-item"><div class="tip-icon">🩹</div><div class="tip-body"><div class="tip-title">Don't train through sharp pain</div><div class="tip-desc">Distinguish discomfort (normal) from sharp, joint, or referred pain (stop). With cervical hernias, any tingling, shooting, or numbness in the arm during a lift means stop that exercise immediately — not after the set.</div></div></div>
-        <div class="tip-item"><div class="tip-icon">📅</div><div class="tip-body"><div class="tip-title">Deload week — Week 5</div><div class="tip-desc">Drop all sets by 40% and remove the heaviest compound movements for one full week. Keep the same exercises, same frequency — just reduce load and volume. You will feel stronger in week 6 than if you had pushed through.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">🛁</div><div class="tip-body"><div class="tip-title">Cold shower after intense sessions</div><div class="tip-desc">2-3 minutes cold water after Phase 2 and 3 sessions. Reduces inflammation and speeds recovery.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">😴</div><div class="tip-body"><div class="tip-title">Sleep is the best recovery tool</div><div class="tip-desc">7.5-9 hours. Growth hormone peaks in the first 90 minutes of deep sleep. Even 1 hour less measurably reduces next-day strength output.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">🦵</div><div class="tip-body"><div class="tip-title">Foam roll 2-3x per week</div><div class="tip-desc">Focus on calves and lateral quad. Reduces stiffness and maintains tissue quality across the 10 weeks.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">🚶</div><div class="tip-body"><div class="tip-title">Walk on rest days</div><div class="tip-desc">20-30 minutes easy walking keeps blood flowing, reduces soreness, adds no meaningful fatigue.</div></div></div>
+        <div class="tip-item"><div class="tip-icon">📅</div><div class="tip-body"><div class="tip-title">Deload week - Week 5</div><div class="tip-desc">Drop all sets by 40%, remove heaviest compound movements. Same exercises, same frequency. You will feel stronger in week 6.</div></div></div>
       </div>
     </div>
-
-    <!-- Bad neck day -->
     <div class="bad-neck-box">
-      <div class="bad-neck-title">🔴 Bad Neck Day — Exercise Substitutions</div>
-      <p style="font-size:13px;color:#888;font-family:'Courier New',monospace;margin-bottom:16px;line-height:1.6">If you wake up with increased stiffness, arm weakness, or tingling — don't skip the gym, just swap these:</p>
-      <div class="bad-neck-row"><div class="bad-neck-orig">DB Shoulder Press</div><div class="bad-neck-sub">Cable Lateral Raise only — no overhead pressing</div></div>
+      <div class="bad-neck-title">🔴 Bad Neck Day - Exercise Substitutions</div>
+      <p style="font-size:13px;color:#888;font-family:'Courier New',monospace;margin-bottom:16px;line-height:1.6">Increased stiffness, arm weakness, or tingling? Don't skip - just swap:</p>
+      <div class="bad-neck-row"><div class="bad-neck-orig">DB Shoulder Press</div><div class="bad-neck-sub">Cable Lateral Raise only - no overhead pressing</div></div>
       <div class="bad-neck-row"><div class="bad-neck-orig">Barbell Row</div><div class="bad-neck-sub">Chest-supported DB Row on incline bench</div></div>
-      <div class="bad-neck-row"><div class="bad-neck-orig">Weighted Pull-up</div><div class="bad-neck-sub">Bodyweight pull-up or assisted pull-up only</div></div>
-      <div class="bad-neck-row"><div class="bad-neck-orig">Skull Crusher</div><div class="bad-neck-sub">Tricep pushdown (cable) — no neck extension under load</div></div>
-      <div class="bad-neck-row"><div class="bad-neck-orig">Any pressing feeling wrong</div><div class="bad-neck-sub">Replace entire push session with face pulls, lateral raises, and core work only</div></div>
-      <div class="bad-neck-row"><div class="bad-neck-orig">Lat Pulldown feeling off</div><div class="bad-neck-sub">Seated cable row with neutral grip — less cervical involvement</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Weighted Pull-up</div><div class="bad-neck-sub">Bodyweight or assisted pull-up only</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Skull Crusher</div><div class="bad-neck-sub">Tricep pushdown (cable) - no neck extension under load</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Any pressing feeling wrong</div><div class="bad-neck-sub">Replace push session with face pulls, lateral raises, and abs only</div></div>
+      <div class="bad-neck-row"><div class="bad-neck-orig">Lat Pulldown feeling off</div><div class="bad-neck-sub">Seated cable row with neutral grip</div></div>
     </div>
   </div>
 
@@ -288,23 +221,23 @@
     <h2 class="section-h2">Neck Safety Protocol</h2>
     <p class="section-sub">Non-negotiable throughout all 10 weeks.</p>
     <div class="neck-list">
-      <div class="neck-item"><span class="neck-num">01</span><span class="neck-text">No overhead pressing behind the neck — ever</span></div>
-      <div class="neck-item"><span class="neck-num">02</span><span class="neck-text">Avoid heavy axial barbell loading — use goblet squat, safety bar, or leg press instead if any symptoms arise</span></div>
+      <div class="neck-item"><span class="neck-num">01</span><span class="neck-text">No overhead pressing behind the neck - ever</span></div>
+      <div class="neck-item"><span class="neck-num">02</span><span class="neck-text">Avoid heavy axial barbell loading - use goblet squat, safety bar, or leg press if symptoms arise</span></div>
       <div class="neck-item"><span class="neck-num">03</span><span class="neck-text">No extreme neck flexion or extension under load</span></div>
-      <div class="neck-item"><span class="neck-num">04</span><span class="neck-text">Cable Face Pulls every single session — most protective exercise for cervical discs</span></div>
-      <div class="neck-item"><span class="neck-num">05</span><span class="neck-text">If any tingling or shooting pain occurs in arm/shoulder, stop immediately — not after the set</span></div>
-      <div class="neck-item"><span class="neck-num">06</span><span class="neck-text">Supported rows (chest on bench) preferred over free-standing bent-over rows</span></div>
-      <div class="neck-item"><span class="neck-num">07</span><span class="neck-text">Lat Pulldown: front only — never behind the neck</span></div>
+      <div class="neck-item"><span class="neck-num">04</span><span class="neck-text">Cable Face Pulls every single session - most protective exercise for cervical discs</span></div>
+      <div class="neck-item"><span class="neck-num">05</span><span class="neck-text">If any tingling or shooting pain in arm/shoulder, stop immediately - not after the set</span></div>
+      <div class="neck-item"><span class="neck-num">06</span><span class="neck-text">Supported rows preferred over free-standing bent-over rows</span></div>
+      <div class="neck-item"><span class="neck-num">07</span><span class="neck-text">Lat Pulldown: front only - never behind the neck</span></div>
       <div class="neck-item"><span class="neck-num">08</span><span class="neck-text">Sleep with a cervical support pillow</span></div>
     </div>
     <div class="mob-card">
-      <div class="mob-title">Daily Neck & Shoulder Mobility (10 min)</div>
-      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Chin Tucks</span><span class="mob-sets">2×15 reps</span></div><div class="mob-desc">Retract chin gently, hold 2s — most important exercise for cervical discs</div></div>
-      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Cervical Rotation</span><span class="mob-sets">2×10/side</span></div><div class="mob-desc">Slow and gentle, never forced</div></div>
-      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Thoracic Extension</span><span class="mob-sets">2×10 reps</span></div><div class="mob-desc">Over foam roller or hands behind head</div></div>
-      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Doorway Chest Stretch</span><span class="mob-sets">3×30s</span></div><div class="mob-desc">Arms at 90°, open chest passively</div></div>
-      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Scapular Wall Slides</span><span class="mob-sets">2×12 reps</span></div><div class="mob-desc">Back to wall, arms slide up/down maintaining contact</div></div>
-      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Dead Hang</span><span class="mob-sets">2×20s</span></div><div class="mob-desc">Decompresses cervical spine — only if pain-free</div></div>
+      <div class="mob-title">Daily Neck &amp; Shoulder Mobility (10 min)</div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Chin Tucks</span><span class="mob-sets">2x15 reps</span></div><div class="mob-desc">Retract chin gently, hold 2s - most important exercise for cervical discs</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Cervical Rotation</span><span class="mob-sets">2x10/side</span></div><div class="mob-desc">Slow and gentle, never forced</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Thoracic Extension</span><span class="mob-sets">2x10 reps</span></div><div class="mob-desc">Over foam roller or hands behind head</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Doorway Chest Stretch</span><span class="mob-sets">3x30s</span></div><div class="mob-desc">Arms at 90 degrees, open chest passively</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Scapular Wall Slides</span><span class="mob-sets">2x12 reps</span></div><div class="mob-desc">Back to wall, arms slide up/down maintaining contact</div></div>
+      <div class="mob-row"><div class="mob-row-top"><span class="mob-name">Dead Hang</span><span class="mob-sets">2x20s</span></div><div class="mob-desc">Decompresses cervical spine - only if pain-free</div></div>
     </div>
   </div>
 
@@ -314,46 +247,48 @@
 const phases = {
   1: {
     color: "#7EB8A4",
-    intro: "🔄 3 days/week. Reactivate upper body strength and rebuild connective tissue. Lower body includes Nordic Curls from day one — the single best hamstring injury prevention investment for a speed player. Don't rush loads.",
+    intro: "3 days/week. Reactivate upper body strength and rebuild connective tissue. Lower body includes Nordic Curls from day one - the single best hamstring injury prevention investment for a speed player. Don't rush loads.",
     showDeload: false,
     days: [
-      { day:"Monday", type:"Upper Body — Push", label:"PUSH", color:"#7EB8A4", exercises:[
+      { day:"Monday", type:"Upper Body - Push", label:"PUSH", color:"#7EB8A4", exercises:[
         {name:"Dumbbell Bench Press",sets:"4",reps:"12",note:"Moderate weight, full range of motion"},
-        {name:"Incline DB Press",sets:"3",reps:"12",note:"30–45° incline"},
+        {name:"Incline DB Press",sets:"3",reps:"12",note:"30-45 degree incline"},
         {name:"Cable Flye",sets:"3",reps:"15",note:"Controlled squeeze at center"},
-        {name:"Seated DB Lateral Raise",sets:"3",reps:"15",note:"Light, strict form — no swinging"},
+        {name:"Seated DB Lateral Raise",sets:"3",reps:"15",note:"Light, strict form - no swinging"},
         {name:"Cable Face Pull",sets:"4",reps:"15",note:"Non-negotiable for cervical health"},
         {name:"Overhead Tricep Extension (DB)",sets:"3",reps:"12",note:""},
-        {name:"Plank",sets:"3",reps:"40s",note:""},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Reverse Crunch",sets:"3",reps:"12",note:"Control the descent, lower back stays flat"}
       ]},
-      { day:"Wednesday", type:"Lower Body — Strength & Speed", label:"LOWER", color:"#A4B87E", exercises:[
-        {name:"Goblet Squat",sets:"3",reps:"10",note:"Moderate load — quality over weight"},
+      { day:"Wednesday", type:"Lower Body - Strength & Speed", label:"LOWER", color:"#A4B87E", exercises:[
+        {name:"Goblet Squat",sets:"3",reps:"10",note:"Moderate load - quality over weight"},
         {name:"Romanian Deadlift",sets:"3",reps:"10",note:"Feel the stretch, controlled"},
-        {name:"Nordic Curl",sets:"3",reps:"5–6",note:"Slow 4s eccentric — hamstring injury prevention essential"},
+        {name:"Nordic Curl",sets:"3",reps:"5-6",note:"Slow 4s eccentric - hamstring injury prevention essential"},
         {name:"Leg Press",sets:"3",reps:"12",note:"Moderate weight"},
         {name:"Leg Curl (machine)",sets:"3",reps:"12",note:"Posterior chain balance"},
         {name:"Standing Calf Raise",sets:"3",reps:"15",note:"On step, full stretch"},
-        {name:"Hanging Knee Raise",sets:"3",reps:"12",note:"Hip flexor strength = sprint speed"},
-        {name:"Ab Wheel Rollout",sets:"3",reps:"10",note:""},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Hollow Body Hold",sets:"3",reps:"30s",note:"Arms overhead, lower back pressed to floor"}
       ]},
-      { day:"Friday", type:"Upper Body — Pull", label:"PULL", color:"#7E9AB8", exercises:[
-        {name:"Assisted Pull-up",sets:"4",reps:"8–10",note:"Neutral grip, machine or jump assist"},
+      { day:"Friday", type:"Upper Body - Pull", label:"PULL", color:"#7E9AB8", exercises:[
+        {name:"Assisted Pull-up",sets:"4",reps:"8-10",note:"Neutral grip, machine or jump assist"},
         {name:"Seated Cable Row",sets:"4",reps:"12",note:"Neutral grip, full scapular retraction"},
         {name:"Single-arm DB Row",sets:"3",reps:"10/side",note:"Chest supported on incline bench"},
         {name:"Cable Face Pull",sets:"3",reps:"15",note:""},
         {name:"Incline DB Curl",sets:"3",reps:"12",note:"Full stretch at bottom"},
         {name:"Hammer Curl",sets:"3",reps:"12",note:""},
-        {name:"Dead Bug",sets:"3",reps:"8/side",note:"Slow and deliberate"},
-      ]},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Reverse Crunch",sets:"3",reps:"12",note:"Control the descent, lower back stays flat"}
+      ]}
     ]
   },
   2: {
     color: "#E8A87C",
-    intro: "📈 4 days/week. Three upper body sessions, one lower body day. Progressive overload across all movements. Lower body loads increase slightly — you're off-season, so you can push a bit more, but keep mass gains minimal to protect speed.",
+    intro: "4 days/week. Three upper body sessions, one lower body day. Progressive overload across all movements. Lower body loads increase slightly - keep mass gains minimal to protect speed.",
     showDeload: true,
     deloadText: "Week 5 is your deload. Drop all sets by 40%, remove heaviest compound sets, keep every exercise and frequency the same. One week of backing off now means stronger output for the entire Phase 3.",
     days: [
-      { day:"Monday", type:"Upper Body — Push", label:"PUSH", color:"#E8A87C", exercises:[
+      { day:"Monday", type:"Upper Body - Push", label:"PUSH", color:"#E8A87C", exercises:[
         {name:"Dumbbell Bench Press",sets:"4",reps:"10",note:"Increase load from phase 1"},
         {name:"Incline DB Press",sets:"4",reps:"10",note:""},
         {name:"Cable Flye",sets:"3",reps:"12",note:""},
@@ -361,70 +296,79 @@ const phases = {
         {name:"Cable Lateral Raise",sets:"3",reps:"12",note:"Single arm, controlled"},
         {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
         {name:"Tricep Pushdown (cable)",sets:"3",reps:"12",note:""},
-        {name:"Decline Crunch",sets:"3",reps:"15",note:""},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Hollow Body Hold",sets:"3",reps:"35s",note:"Arms overhead, lower back pressed to floor"}
       ]},
-      { day:"Wednesday", type:"Lower Body — Strength & Speed", label:"LOWER", color:"#C8A87C", exercises:[
-        {name:"Goblet Squat",sets:"3",reps:"10",note:"Slight load increase — still not maxing out"},
+      { day:"Wednesday", type:"Lower Body - Strength & Speed", label:"LOWER", color:"#C8A87C", exercises:[
+        {name:"Goblet Squat",sets:"3",reps:"10",note:"Slight load increase - still not maxing out"},
         {name:"Romanian Deadlift",sets:"4",reps:"8",note:"Build load, maintain hinge quality"},
-        {name:"Nordic Curl",sets:"3",reps:"6–8",note:"Every session — non-negotiable"},
+        {name:"Nordic Curl",sets:"3",reps:"6-8",note:"Every session - non-negotiable"},
         {name:"Leg Press",sets:"3",reps:"10",note:"Moderate-heavy"},
         {name:"Leg Curl (machine)",sets:"3",reps:"12",note:""},
         {name:"Seated Calf Raise",sets:"3",reps:"15",note:""},
-        {name:"Cable Crunch",sets:"3",reps:"15",note:""},
-        {name:"Hanging Knee Raise",sets:"3",reps:"15",note:"Hip flexor strength for sprint speed"},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Reverse Crunch",sets:"3",reps:"15",note:"Add a small pause at the top"}
       ]},
-      { day:"Thursday", type:"Upper Body — Pull", label:"PULL", color:"#7C9EE8", exercises:[
-        {name:"Pull-up (bodyweight)",sets:"4",reps:"6–8",note:"Full ROM, no kipping"},
+      { day:"Thursday", type:"Upper Body - Pull", label:"PULL", color:"#7C9EE8", exercises:[
+        {name:"Pull-up (bodyweight)",sets:"4",reps:"6-8",note:"Full ROM, no kipping"},
         {name:"Barbell Row",sets:"4",reps:"8",note:"Chest on incline bench to reduce neck strain"},
         {name:"Seated Cable Row",sets:"3",reps:"10",note:""},
-        {name:"Lat Pulldown",sets:"3",reps:"10",note:"Front only — wide grip"},
+        {name:"Lat Pulldown",sets:"3",reps:"10",note:"Front only - wide grip"},
         {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
         {name:"Incline DB Curl",sets:"3",reps:"10",note:""},
         {name:"Hammer Curl",sets:"3",reps:"10",note:""},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Hollow Body Hold",sets:"3",reps:"35s",note:"Arms overhead, lower back pressed to floor"}
       ]},
-      { day:"Saturday", type:"Upper Body — Full (Volume)", label:"FULL", color:"#A8C87C", exercises:[
-        {name:"Dips",sets:"4",reps:"10–12",note:"Upright torso, full ROM"},
+      { day:"Saturday", type:"Upper Body - Full (Volume)", label:"FULL", color:"#A8C87C", exercises:[
+        {name:"Dips",sets:"4",reps:"10-12",note:"Upright torso, full ROM"},
         {name:"Pull-up",sets:"4",reps:"max",note:""},
         {name:"DB Bench Press",sets:"3",reps:"12",note:"Moderate, pump focus"},
         {name:"Cable Row",sets:"3",reps:"12",note:""},
         {name:"Cable Face Pull",sets:"3",reps:"20",note:""},
         {name:"DB Curl + Overhead Extension",sets:"3",reps:"12+12",note:"Superset"},
         {name:"Cable Lateral Raise",sets:"3",reps:"15",note:""},
-      ]},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Reverse Crunch",sets:"3",reps:"15",note:"Add a small pause at the top"}
+      ]}
     ]
   },
   3: {
     color: "#8EB8D8",
-    intro: "🔥 4 days/week + 2–3 runs. Peak gym intensity. Lower body remains controlled — your running is already loading the legs. Runs: keep at least one session as short sprints or strides to maintain fast-twitch output.",
+    intro: "4 days/week + 2-3 runs. Peak gym intensity. Lower body remains controlled - your running is already loading the legs. Keep at least one run as short sprints or strides to maintain fast-twitch output.",
     showDeload: false,
     days: [
-      { day:"Monday", type:"Upper Body — Push (Intensity)", label:"PUSH", color:"#8EB8D8", exercises:[
-        {name:"Dumbbell Bench Press",sets:"5",reps:"6–8",note:"Peak load — controlled descent"},
+      { day:"Monday", type:"Upper Body - Push (Intensity)", label:"PUSH", color:"#8EB8D8", exercises:[
+        {name:"Dumbbell Bench Press",sets:"5",reps:"6-8",note:"Peak load - controlled descent"},
         {name:"Incline DB Press",sets:"4",reps:"8",note:""},
         {name:"Cable Flye superset Push-up",sets:"3",reps:"12 + max",note:"Straight into push-ups"},
         {name:"Seated DB Shoulder Press",sets:"4",reps:"8",note:""},
         {name:"Cable Lateral Raise",sets:"3",reps:"15",note:""},
         {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
         {name:"Skull Crusher (EZ bar)",sets:"3",reps:"10",note:"Light-moderate, elbows stable"},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Hollow Body Hold",sets:"3",reps:"45s",note:"Arms overhead - hold position tight"}
       ]},
-      { day:"Tuesday", type:"Lower Body — Strength & Speed", label:"LOWER", color:"#78B8A4", exercises:[
-        {name:"Romanian Deadlift",sets:"3",reps:"8",note:"Moderate load — running is already loading legs"},
-        {name:"Nordic Curl",sets:"4",reps:"6",note:"Slow 4s eccentric — most important exercise for hamstring health"},
-        {name:"Leg Press",sets:"3",reps:"10",note:"Not maxing — supplementary only"},
+      { day:"Tuesday", type:"Lower Body - Strength & Speed", label:"LOWER", color:"#78B8A4", exercises:[
+        {name:"Romanian Deadlift",sets:"3",reps:"8",note:"Moderate load - running is already loading legs"},
+        {name:"Nordic Curl",sets:"4",reps:"6",note:"Slow 4s eccentric - most important exercise for hamstring health"},
+        {name:"Leg Press",sets:"3",reps:"10",note:"Not maxing - supplementary only"},
         {name:"Leg Curl (machine)",sets:"3",reps:"12",note:""},
         {name:"Standing Calf Raise",sets:"3",reps:"15",note:""},
-        {name:"Ab Wheel Rollout",sets:"4",reps:"12",note:""},
-        {name:"Hanging Leg Raise",sets:"3",reps:"12",note:"Straight legs if possible"},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Reverse Crunch",sets:"3",reps:"15",note:"Pause at top, slow descent"}
       ]},
-      { day:"Thursday", type:"Upper Body — Pull (Intensity)", label:"PULL", color:"#6888C8", exercises:[
-        {name:"Weighted Pull-up",sets:"4",reps:"5–6",note:"Belt or dumbbell between feet"},
-        {name:"Barbell Row",sets:"4",reps:"6–8",note:"Heavier than phase 2"},
+      { day:"Thursday", type:"Upper Body - Pull (Intensity)", label:"PULL", color:"#6888C8", exercises:[
+        {name:"Weighted Pull-up",sets:"4",reps:"5-6",note:"Belt or dumbbell between feet"},
+        {name:"Barbell Row",sets:"4",reps:"6-8",note:"Heavier than phase 2"},
         {name:"Seated Cable Row",sets:"3",reps:"8",note:"Heavy, full retraction"},
         {name:"Lat Pulldown",sets:"3",reps:"10",note:""},
         {name:"Cable Face Pull",sets:"4",reps:"15",note:""},
         {name:"Incline DB Curl superset Hammer Curl",sets:"3",reps:"10+10",note:"No rest between"},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Hollow Body Hold",sets:"3",reps:"45s",note:"Arms overhead - hold position tight"}
       ]},
-      { day:"Saturday", type:"Upper Body — Push (Volume)", label:"PUSH", color:"#88B878", exercises:[
+      { day:"Saturday", type:"Upper Body - Push (Volume)", label:"PUSH", color:"#88B878", exercises:[
         {name:"Dips (weighted)",sets:"4",reps:"8",note:"Add weight if bodyweight is easy"},
         {name:"DB Bench Press",sets:"3",reps:"10",note:"Moderate, pump-focused"},
         {name:"Incline DB Press",sets:"3",reps:"10",note:""},
@@ -432,7 +376,9 @@ const phases = {
         {name:"Cable Face Pull",sets:"3",reps:"20",note:""},
         {name:"Overhead Tricep Extension",sets:"3",reps:"12",note:""},
         {name:"Tricep Pushdown",sets:"3",reps:"15",note:"Drop set on last set"},
-      ]},
+        {name:"Hanging Leg Raise",sets:"4",reps:"10/8/6/4",note:"Slow and controlled - no swinging"},
+        {name:"Reverse Crunch",sets:"3",reps:"15",note:"Pause at top, slow descent"}
+      ]}
     ]
   }
 };
@@ -443,36 +389,36 @@ const mealDays = [
     {time:"Lunch",food:"200g grilled chicken breast, white rice, large mixed salad with olive oil & lemon"},
     {time:"Snack",food:"Full-fat Greek yogurt + handful of walnuts"},
     {time:"Post-workout",food:"Cottage cheese with berries + a slice of whole grain bread"},
-    {time:"Dinner",food:"Lean beef steak, sweet potato, steamed broccoli with butter"},
+    {time:"Dinner",food:"Lean beef steak, sweet potato, steamed broccoli with butter"}
   ]},
   { label:"Day B", theme:"Chicken & Egg Focus", color:"#E8A87C", meals:[
     {time:"Breakfast",food:"4-egg omelette with cheese & spinach, 2 slices whole grain toast, coffee"},
     {time:"Lunch",food:"Chicken wrap: tortilla, grilled chicken, avocado, tomato, Greek yogurt instead of mayo"},
-    {time:"Snack",food:"Hard-boiled eggs (2–3) + apple"},
-    {time:"Post-workout",food:"Full-fat milk smoothie: banana, peanut butter, oats — no powder needed"},
-    {time:"Dinner",food:"Ground beef stir-fry with bell peppers, onions, served over rice"},
+    {time:"Snack",food:"Hard-boiled eggs (2-3) + apple"},
+    {time:"Post-workout",food:"Full-fat milk smoothie: banana, peanut butter, oats - no powder needed"},
+    {time:"Dinner",food:"Ground beef stir-fry with bell peppers, onions, served over rice"}
   ]},
   { label:"Day C", theme:"Mediterranean Lean", color:"#8EB8D8", meals:[
     {time:"Breakfast",food:"Full-fat Greek yogurt bowl: granola, mixed berries, drizzle of honey, side of boiled egg"},
     {time:"Lunch",food:"Grilled chicken thighs, quinoa, roasted vegetables (zucchini, peppers, eggplant) with olive oil"},
     {time:"Snack",food:"Cottage cheese + sliced cucumber & tomato, pinch of salt"},
     {time:"Post-workout",food:"2 eggs on whole grain toast with avocado"},
-    {time:"Dinner",food:"Lamb mince with chickpeas, tomato sauce & herbs, served with flatbread"},
+    {time:"Dinner",food:"Lamb mince with chickpeas, tomato sauce & herbs, served with flatbread"}
   ]},
   { label:"Day D", theme:"Red Meat & Hearty", color:"#C87878", meals:[
-    {time:"Breakfast",food:"Overnight oats: oats, full-fat milk, chia seeds, banana — prepped the night before"},
+    {time:"Breakfast",food:"Overnight oats: oats, full-fat milk, chia seeds, banana - prepped the night before"},
     {time:"Lunch",food:"Beef mince bolognese with pasta, parmesan, side salad"},
     {time:"Snack",food:"Handful of mixed nuts + full-fat milk glass"},
     {time:"Post-workout",food:"Greek yogurt with honey + rice cake with peanut butter"},
-    {time:"Dinner",food:"Grilled ribeye or sirloin, roasted potatoes with rosemary, green beans"},
+    {time:"Dinner",food:"Grilled ribeye or sirloin, roasted potatoes with rosemary, green beans"}
   ]},
   { label:"Day E", theme:"Poultry Variety", color:"#A878C8", meals:[
     {time:"Breakfast",food:"Pancakes made with oats, eggs & banana (no flour), topped with Greek yogurt & berries"},
     {time:"Lunch",food:"Turkey mince burger patty with whole grain bun, tomato, lettuce, mustard + sweet potato fries"},
     {time:"Snack",food:"Cottage cheese with pineapple chunks"},
     {time:"Post-workout",food:"Boiled eggs (3) + orange"},
-    {time:"Dinner",food:"Chicken thigh stew with white beans, tomatoes & spinach, crusty bread"},
-  ]},
+    {time:"Dinner",food:"Chicken thigh stew with white beans, tomatoes & spinach, crusty bread"}
+  ]}
 ];
 
 let activePhase = 1;
@@ -508,7 +454,6 @@ function renderPhase() {
   const intro = document.getElementById('phase-intro');
   intro.textContent = phase.intro;
   intro.style.borderLeftColor = phase.color;
-
   const deloadBox = document.getElementById('deload-box');
   if (phase.showDeload) {
     deloadBox.style.display = 'block';
@@ -516,7 +461,6 @@ function renderPhase() {
   } else {
     deloadBox.style.display = 'none';
   }
-
   const container = document.getElementById('days-container');
   container.innerHTML = '';
   phase.days.forEach((day) => {
@@ -524,7 +468,7 @@ function renderPhase() {
     card.className = 'day-card';
     const exRows = day.exercises.map(ex => `
       <div class="ex-row">
-        <div><div class="ex-name">${ex.name}</div>${ex.note ? `<div class="ex-note">↳ ${ex.note}</div>` : ''}</div>
+        <div><div class="ex-name">${ex.name}</div>${ex.note ? `<div class="ex-note">&#8627; ${ex.note}</div>` : ''}</div>
         <div class="ex-sets" style="color:${day.color}">${ex.sets}</div>
         <div class="ex-reps">${ex.reps}</div>
       </div>`).join('');
@@ -534,7 +478,7 @@ function renderPhase() {
           <span class="day-label" style="background:${day.color}22;color:${day.color};border:1px solid ${day.color}44">${day.label}</span>
           <div><div class="day-name">${day.day}</div><div class="day-type">${day.type}</div></div>
         </div>
-        <div class="arrow">▾</div>
+        <div class="arrow">&#9662;</div>
       </button>
       <div class="exercise-list">
         <div class="ex-header"><span>Exercise</span><span style="text-align:center;min-width:50px">Sets</span><span style="text-align:right;min-width:80px">Reps</span></div>
@@ -571,7 +515,7 @@ function renderMeals() {
         <div class="meal-time" style="color:${d.color}">${m.time}</div>
         <div class="meal-food">${m.food}</div>
       </div>`).join('');
-    panel.innerHTML = `<div class="meal-panel-title">${d.label} — ${d.theme}</div>${rows}`;
+    panel.innerHTML = `<div class="meal-panel-title">${d.label} &mdash; ${d.theme}</div>${rows}`;
     panels.appendChild(panel);
   });
   switchMealDay(0);
